@@ -1,0 +1,134 @@
+From e593c3d8c63681454d7984d0a1c7370b7674000c Mon Sep 17 00:00:00 2001
+From: jinyounglee <hs25823@naver.com>
+Date: Tue, 29 Nov 2016 23:48:35 +0900
+Subject: [PATCH] =?UTF-8?q?=EC=B5=9C=EC=B4=88=EC=BB=A4=EB=B0=8B?=
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+---
+ beans.xml                    | 25 +++++++++++++++++++++++++
+ bulid.xml                    |  1 +
+ sample1/MainClass.java       |  7 +++++++
+ sample1/MessageBean.java     |  5 +++++
+ sample1/MessageBeanImpl.java | 27 +++++++++++++++++++++++++++
+ sample1/Outputter.java       |  5 +++++
+ 6 files changed, 70 insertions(+)
+ create mode 100644 beans.xml
+ create mode 100644 bulid.xml
+ create mode 100644 sample1/MainClass.java
+ create mode 100644 sample1/MessageBean.java
+ create mode 100644 sample1/MessageBeanImpl.java
+ create mode 100644 sample1/Outputter.java
+
+diff --git a/beans.xml b/beans.xml
+new file mode 100644
+index 0000000..03f979d
+--- /dev/null
++++ b/beans.xml
+@@ -0,0 +1,25 @@
++<?xml version="1.0" encoding="UTF-8"?>
++
++<beans xmlns="http://www.springframework.org/schema/beans"
++	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
++	xsi:schemaLocation="http://www.springframework.org/schema/beans
++	http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
++	<bean id="messeageBean" class="sample1.messageBeanImpl">
++		<constructor-arg>
++			<value>Spring</value>
++		</constructor-arg>
++		
++		<property name="greeting">
++			<value>Hello, </value>	
++		</property>
++		
++		<property name="outputter">
++			<ref local="outputter"></ref>
++		</property>
++	</bean>
++	<bean id="outputter" class="sample1.FileOutputter">
++		<property name="filePath">
++			<value>out.txt</value>
++		</property>
++	</bean>
++</beans>
+\ No newline at end of file
+diff --git a/bulid.xml b/bulid.xml
+new file mode 100644
+index 0000000..b994f53
+--- /dev/null
++++ b/bulid.xml
+@@ -0,0 +1 @@
++<?xml version="1.0" encoding="UTF-8"?>
+\ No newline at end of file
+diff --git a/sample1/MainClass.java b/sample1/MainClass.java
+new file mode 100644
+index 0000000..a18a052
+--- /dev/null
++++ b/sample1/MainClass.java
+@@ -0,0 +1,7 @@
++package sample1;
++
++public class MainClass {
++	public static void main(String[] args) {
++		
++	}
++}
+diff --git a/sample1/MessageBean.java b/sample1/MessageBean.java
+new file mode 100644
+index 0000000..f287f7b
+--- /dev/null
++++ b/sample1/MessageBean.java
+@@ -0,0 +1,5 @@
++package sample1;
++
++public interface MessageBean {
++	void sayHello();
++}
+diff --git a/sample1/MessageBeanImpl.java b/sample1/MessageBeanImpl.java
+new file mode 100644
+index 0000000..2dd9647
+--- /dev/null
++++ b/sample1/MessageBeanImpl.java
+@@ -0,0 +1,27 @@
++package sample1;
++
++public class MessageBeanImpl implements MessageBean {
++	private String greeting;
++	private String name;
++	
++	public String getGreeting() {
++		return greeting;
++	}
++
++	public void setGreeting(String greeting) {
++		this.greeting = greeting;
++	}
++
++	public String getName() {
++		return name;
++	}
++	
++	public void setName(String name) {
++		this.name = name;
++	}
++	
++	@Override
++	public void sayHello() {
++		System.out.println(greeting + name + "i");
++	}
++}
+diff --git a/sample1/Outputter.java b/sample1/Outputter.java
+new file mode 100644
+index 0000000..af4ddd9
+--- /dev/null
++++ b/sample1/Outputter.java
+@@ -0,0 +1,5 @@
++package sample1;
++
++public interface Outputter {
++
++}
+-- 
+2.6.3.windows.1
+

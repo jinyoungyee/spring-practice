@@ -1,8 +1,11 @@
 package sample1;
 
+import java.io.IOException;
+
 public class MessageBeanImpl implements MessageBean {
 	private String greeting;
 	private String name;
+	private Outputter outputter;
 	
 	public String getGreeting() {
 		return greeting;
@@ -22,6 +25,17 @@ public class MessageBeanImpl implements MessageBean {
 	
 	@Override
 	public void sayHello() {
-		System.out.println(greeting + name + "i");
+		String message = greeting + name + "!";
+		System.out.println(message);
+		try{
+			outputter.output(message);
+		} catch(IOException e){
+			e.printStackTrace();
+		}
 	}
+	
+	public void setOutputter(Outputter outputter){
+		this.outputter = outputter;
+	}
+	
 }

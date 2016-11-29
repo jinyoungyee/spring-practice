@@ -1,5 +1,7 @@
 package sample1;
 
-public interface Outputter {
+import java.io.IOException;
 
+public interface Outputter {
+	public void output(String message) throws IOException;
 }
